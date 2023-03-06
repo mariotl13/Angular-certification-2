@@ -1,1 +1,10 @@
-<p>home works!</p>
+
+<select *ngIf="teams">
+    <ng-container *ngFor="let team of teams">
+        <option [value]="team.name">{{team.name}}</option>
+    </ng-container>
+</select>
+
+<button>Track team</button>
+
+<app-card></app-card>
