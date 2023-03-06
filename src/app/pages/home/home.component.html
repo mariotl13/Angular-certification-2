@@ -1,10 +1,10 @@
-
-<select *ngIf="teams">
+<select id="teamSelect" #teamSelect>
     <ng-container *ngFor="let team of teams">
         <option [value]="team.name">{{team.name}}</option>
     </ng-container>
 </select>
+<button id="trackBtn" (click)="trackTeam(teamSelect.value)">Track team</button>
 
-<button>Track team</button>
-
-<app-card></app-card>
+<div class="cards-container">
+    <app-card *ngFor="let team of selectedTeams" [team]="team" (onClose)="closeTeam(team)"></app-card>
+</div>

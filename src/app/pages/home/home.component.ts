@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { map } from 'rxjs';
 import { CommonService } from 'src/app/core/services/common.service';
 import { NbaTeam } from 'src/app/shared/models/nba.model';
 
@@ -10,17 +9,26 @@ import { NbaTeam } from 'src/app/shared/models/nba.model';
 })
 export class HomeComponent implements OnInit {
 
-  // cards: any[];
   teams: NbaTeam[] = [];
+  selectedTeams: NbaTeam[] = [];
 
   constructor(private commonService: CommonService) { }
 
   ngOnInit(): void {
     this.commonService.getTeams().subscribe((values: NbaTeam[]) => {
       this.teams = values;
-      console.log('vafafwef', this.teams)
     });
-    // console.log('pruebaaaa', this.prueba);
+  }
+
+  trackTeam(teamName: string) {
+    if (!this.selectedTeams.some(team => team.name === teamName)) {
+      const team = this.teams.find((team: NbaTeam) => team.name === teamName);
+      if (team) this.selectedTeams.push(team);
+    }
+  }
+
+  closeTeam(teamClose: NbaTeam) {
+    this.selectedTeams = this.selectedTeams.filter(team => team !== teamClose);
   }
 
 }

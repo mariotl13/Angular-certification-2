@@ -1,2 +1,22 @@
+<div class="container">
+    <p>{{team.name}} [{{team.abbreviation}}]</p>
+    <p id="remove{{team.abbreviation}}" class="close-icon" (click)="onClose.emit()">x</p>
+</div>
+<p>{{team.conference}}</p>
 
-soy una card
+<div class="line-separator"></div>
+
+<div class="container">
+    <div>
+        <p>Results of past 12 days:</p>
+        <div class="results-container">
+            <div [appGameResult]="game" [appTeam]="team" class="result" *ngFor="let game of $games | async"></div>
+        </div>
+        <p>Avg pts scored: </p>
+        <p>Avg pts conceded: </p>
+    </div>
+
+    <img src="https://interstate21.com/nba-logos/{{team.abbreviation}}.png">
+</div>
+
+<button class="button-results" (click)="goToResults()">See game results >></button>
