@@ -6,5 +6,5 @@
 <button id="trackBtn" (click)="trackTeam(teamSelect.value)">Track team</button>
 
 <div class="cards-container">
-    <app-card *ngFor="let team of commonService.selectedTeams" [team]="team" (onClose)="closeTeam(team)"></app-card>
+    <app-team-card *ngFor="let team of commonService.selectedTeams" [team]="team" (onClose)="closeTeam(team)"></app-team-card>
 </div>

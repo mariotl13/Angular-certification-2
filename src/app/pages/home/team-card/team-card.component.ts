@@ -5,11 +5,11 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { NbaGame, NbaTeam } from 'src/app/shared/models/nba.model';
 
 @Component({
-  selector: 'app-card',
-  templateUrl: './card.component.html',
-  styleUrls: ['./card.component.scss']
+  selector: 'app-team-card',
+  templateUrl: './team-card.component.html',
+  styleUrls: ['./team-card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class TeamCardComponent implements OnInit {
 
   @Input() team!: NbaTeam;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
@@ -23,7 +23,6 @@ export class CardComponent implements OnInit {
   }
 
   goToResults() {
-    // TODO: Pasarle aqui la info del games que ya hemos obtenido para no hacer la llamada dos veces???
     this.router.navigate(['results/' + this.team.abbreviation])
   }
 
