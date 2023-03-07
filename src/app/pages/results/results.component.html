@@ -1,1 +1,12 @@
-<p>results works!</p>
+<div class="results-container">
+    <h2>{{team?.full_name}} [{{team?.abbreviation}}]</h2>
+    <p>{{team?.conference}}</p>
+    <div class="line-separator"></div>
+    <p>Scores of past 12 days:</p>
+    <p *ngFor="let game of $games | async">
+        <span class="bold">{{game.home_team.abbreviation}}</span>
+        {{game.home_team_score}} - {{game.visitor_team_score}}
+        <span class="bold">{{game.visitor_team.abbreviation}}</span>
+    </p>
+    <button (click)="goToHome()" class="button-card"><< Back to all team stats</button>
+</div>

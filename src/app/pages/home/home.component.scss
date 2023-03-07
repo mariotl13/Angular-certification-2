@@ -1,5 +1,42 @@
+button {
+    cursor: pointer;
+    padding: 8px 16px;
+    background-color: blue;
+    color: white;
+    border: 0px;
+    border-radius: 4px;
+    margin-left: 8px;
+}
+
 .cards-container {
     display: flex;
     flex-wrap: wrap;
     gap: 16px;
+
+    .container {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+
+        .results-container {
+            display: flex;
+            gap: 4px;
+    
+            .result {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+            }
+        }
+    
+        img {
+            width: 116px;
+        }
+    }
+
 }
+

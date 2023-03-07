@@ -9,26 +9,23 @@ import { NbaTeam } from 'src/app/shared/models/nba.model';
 })
 export class HomeComponent implements OnInit {
 
-  teams: NbaTeam[] = [];
-  selectedTeams: NbaTeam[] = [];
-
-  constructor(private commonService: CommonService) { }
+  constructor(public commonService: CommonService) { }
 
   ngOnInit(): void {
     this.commonService.getTeams().subscribe((values: NbaTeam[]) => {
-      this.teams = values;
+      this.commonService.teams = values;
     });
   }
 
   trackTeam(teamName: string) {
-    if (!this.selectedTeams.some(team => team.name === teamName)) {
-      const team = this.teams.find((team: NbaTeam) => team.name === teamName);
-      if (team) this.selectedTeams.push(team);
+    if (!this.commonService.selectedTeams.some(team => team.name === teamName)) {
+      const team = this.commonService.teams.find((team: NbaTeam) => team.name === teamName);
+      if (team) this.commonService.selectedTeams.push(team);
     }
   }
 
   closeTeam(teamClose: NbaTeam) {
-    this.selectedTeams = this.selectedTeams.filter(team => team !== teamClose);
+    this.commonService.selectedTeams = this.commonService.selectedTeams.filter(team => team !== teamClose);
   }
 
 }

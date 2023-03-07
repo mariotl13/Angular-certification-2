@@ -1,5 +1,5 @@
 <div class="container">
-    <p>{{team.name}} [{{team.abbreviation}}]</p>
+    <h2>{{team.full_name}} [{{team.abbreviation}}]</h2>
     <p id="remove{{team.abbreviation}}" class="close-icon" (click)="onClose.emit()">x</p>
 </div>
 <p>{{team.conference}}</p>
@@ -19,4 +19,4 @@
     <img src="https://interstate21.com/nba-logos/{{team.abbreviation}}.png">
 </div>
 
-<button class="button-results" (click)="goToResults()">See game results >></button>
+<button (click)="goToResults()" class="button-card">See game results >></button>

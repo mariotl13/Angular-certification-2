@@ -10,6 +10,9 @@ export class CommonService {
 
     url = 'https://free-nba.p.rapidapi.com/';
 
+    teams: NbaTeam[] = [];
+    selectedTeams: NbaTeam[] = [];
+
     constructor(private _http: HttpClient) {}
 
     getTeams(): Observable<NbaTeam[]> {
