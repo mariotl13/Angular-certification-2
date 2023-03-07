@@ -8,7 +8,7 @@ import { NbaTeam } from '../../models/nba.model';
 })
 export class CardComponent {
 
-  @Input() team!: NbaTeam;
+  @Input() team: NbaTeam | undefined;
   @Input() showClose?: boolean = true;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
 

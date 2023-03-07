@@ -4,10 +4,10 @@
         <div>
             <p>Results of past 12 days:</p>
             <div class="results-container">
-                <div [appGameResult]="game" [appTeam]="team" class="result" *ngFor="let game of $games | async"></div>
+                <div [appGameResult]="game" [appTeam]="team" class="result" *ngFor="let game of games"></div>
             </div>
-            <p>Avg pts scored: </p>
-            <p>Avg pts conceded: </p>
+            <p>Avg pts scored: {{ptsScored | number : '1.0-2'}}</p>
+            <p>Avg pts conceded: {{ptsConceded | number : '1.0-2'}}</p>
         </div>
 
         <img src="https://interstate21.com/nba-logos/{{team.abbreviation}}.png">

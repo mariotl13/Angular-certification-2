@@ -14,12 +14,24 @@ export class TeamCardComponent implements OnInit {
   @Input() team!: NbaTeam;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
 
-  $games!: Observable<NbaGame[]>;
+  games!: NbaGame[];
+
+  ptsScored: number = 0;
+  ptsConceded: number = 0;
 
   constructor(private commonService: CommonService, private router: Router) { }
 
   ngOnInit(): void {
-    this.$games = this.commonService.getGames(this.team.id);
+    this.commonService.getGames(this.team.id).subscribe((games: NbaGame[]) => {
+      this.games = games;
+
+      this.ptsScored = this.games.reduce((partialSum: number, game: NbaGame) => {
+        return partialSum + (game.home_team.id === this.team.id ? game.home_team_score : game.visitor_team_score)
+      }, 0) / this.games.length;
+      this.ptsConceded = this.games.reduce((partialSum: number, game: NbaGame) => {
+        return partialSum + (game.home_team.id === this.team.id ? game.visitor_team_score : game.home_team_score)
+      }, 0) / this.games.length;
+    });
   }
 
   goToResults() {
