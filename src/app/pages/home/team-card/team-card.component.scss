@@ -1,6 +1,4 @@
 :host {
-    padding: 16px;
-    background-color: white;
 
     * {
         margin: 8px 0;
@@ -10,35 +8,24 @@
         display: flex;
         justify-content: space-between;
         gap: 12px;
-    }
 
-    .close-icon {
-        cursor: pointer;
-        font-size: 24px;
-    }
-
-    .line-separator {
-        width: 100%;
-        height: 0px;
-        border-top: 1px solid gray;
-    }
-
-    .results-container {
-        display: flex;
-        gap: 4px;
-
-        .result {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
+        .results-container {
             display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-    }
+            gap: 4px;
 
-    img {
-        width: 116px;
+            .result {
+                width: 24px;
+                height: 24px;
+                border-radius: 50%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                color: white;
+            }
+        }
+
+        img {
+            width: 116px;
+        }
     }
 }

@@ -1,0 +1,9 @@
+<div class="container">
+    <h2>{{team?.full_name}} [{{team?.abbreviation}}]</h2>
+    <p *ngIf="showClose" id="remove{{team?.abbreviation}}" class="close-icon" (click)="onClose.emit()">x</p>
+</div>
+<p>{{team?.conference}}</p>
+
+<div class="line-separator"></div>
+
+<ng-content></ng-content>

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { TeamCardComponent } from './team-card/team-card.component';
 import { HomeComponent } from './home.component';
 import { GameResultDirective } from './team-card/game-result.directive';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { GameResultDirective } from './team-card/game-result.directive';
   ],
   imports: [
     BrowserModule,
+    SharedModule
   ],
   exports: [
     HomeComponent,
