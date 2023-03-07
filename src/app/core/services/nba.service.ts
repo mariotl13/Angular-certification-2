@@ -6,7 +6,7 @@ import { NbaGame, NbaGameApiResult, NbaTeam, NbaTeamApiResult } from 'src/app/sh
 @Injectable({
     providedIn: 'root',
 })
-export class CommonService {
+export class NbaService {
 
     url = 'https://free-nba.p.rapidapi.com/';
 

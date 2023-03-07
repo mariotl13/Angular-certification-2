@@ -1,10 +1,10 @@
 <select id="teamSelect" #teamSelect>
-    <ng-container *ngFor="let team of commonService.teams">
+    <ng-container *ngFor="let team of nbaService.teams">
         <option [value]="team.name">{{team.name}}</option>
     </ng-container>
 </select>
 <button id="trackBtn" (click)="trackTeam(teamSelect.value)">Track team</button>
 
 <div class="cards-container">
-    <app-team-card *ngFor="let team of commonService.selectedTeams" [team]="team" (onClose)="closeTeam(team)"></app-team-card>
+    <app-team-card *ngFor="let team of nbaService.selectedTeams" [team]="team" (onClose)="closeTeam(team)"></app-team-card>
 </div>

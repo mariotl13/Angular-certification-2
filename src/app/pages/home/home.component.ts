@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonService } from 'src/app/core/services/common.service';
+import { NbaService } from 'src/app/core/services/nba.service';
 import { NbaTeam } from 'src/app/shared/models/nba.model';
 
 @Component({
@@ -9,23 +9,23 @@ import { NbaTeam } from 'src/app/shared/models/nba.model';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(public commonService: CommonService) { }
+  constructor(public nbaService: NbaService) { }
 
   ngOnInit(): void {
-    this.commonService.getTeams().subscribe((values: NbaTeam[]) => {
-      this.commonService.teams = values;
+    this.nbaService.getTeams().subscribe((values: NbaTeam[]) => {
+      this.nbaService.teams = values;
     });
   }
 
   trackTeam(teamName: string) {
-    if (!this.commonService.selectedTeams.some(team => team.name === teamName)) {
-      const team = this.commonService.teams.find((team: NbaTeam) => team.name === teamName);
-      if (team) this.commonService.selectedTeams.push(team);
+    if (!this.nbaService.selectedTeams.some(team => team.name === teamName)) {
+      const team = this.nbaService.teams.find((team: NbaTeam) => team.name === teamName);
+      if (team) this.nbaService.selectedTeams.push(team);
     }
   }
 
   closeTeam(teamClose: NbaTeam) {
-    this.commonService.selectedTeams = this.commonService.selectedTeams.filter(team => team !== teamClose);
+    this.nbaService.selectedTeams = this.nbaService.selectedTeams.filter(team => team !== teamClose);
   }
 
 }

@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { CommonService } from 'src/app/core/services/common.service';
+import { NbaService } from 'src/app/core/services/nba.service';
 import { NbaGame, NbaTeam } from 'src/app/shared/models/nba.model';
 
 @Component({
@@ -19,10 +18,10 @@ export class TeamCardComponent implements OnInit {
   ptsScored: number = 0;
   ptsConceded: number = 0;
 
-  constructor(private commonService: CommonService, private router: Router) { }
+  constructor(private nbaService: NbaService, private router: Router) { }
 
   ngOnInit(): void {
-    this.commonService.getGames(this.team.id).subscribe((games: NbaGame[]) => {
+    this.nbaService.getGames(this.team.id).subscribe((games: NbaGame[]) => {
       this.games = games;
 
       this.ptsScored = this.games.reduce((partialSum: number, game: NbaGame) => {
