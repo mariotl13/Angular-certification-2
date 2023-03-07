@@ -21,9 +21,12 @@ export class ResultsComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.#routeSub = this.route.params.subscribe(params => {
       this.team = this.nbaService.teams.find((team: NbaTeam) => team.abbreviation === params['teamCode']) as NbaTeam;
+      // If the team is already in the service array, get only the games
       if (this.team) {
         this.$games = this.nbaService.getGames(this.team.id);
-      } else {
+      }
+      // If the team is not in the service array (access to the results page directly by url), get the teams and the games
+      else {
         this.nbaService.getTeams().subscribe((values: NbaTeam[]) => {
           this.nbaService.teams = values;
           this.team = this.nbaService.teams.find((team: NbaTeam) => team.abbreviation === params['teamCode']) as NbaTeam;
@@ -33,6 +36,9 @@ export class ResultsComponent implements OnInit, OnDestroy {
     });
   }
 
+  /**
+   * Navigate to the home page
+   */
   goToHome() {
     this.router.navigate(['']);
   }

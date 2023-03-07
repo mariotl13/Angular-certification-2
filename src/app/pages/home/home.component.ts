@@ -17,6 +17,10 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  /**
+   * If the team is not already selected, add it to the selected teams array in the service
+   * @param {string} teamName - Name of a team
+   */
   trackTeam(teamName: string) {
     if (!this.nbaService.selectedTeams.some(team => team.name === teamName)) {
       const team = this.nbaService.teams.find((team: NbaTeam) => team.name === teamName);
@@ -24,6 +28,10 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  /**
+   * Removes a team from the selected teams array in the service
+   * @param {NbaTeam} teamClose - Name of a team
+   */
   closeTeam(teamClose: NbaTeam) {
     this.nbaService.selectedTeams = this.nbaService.selectedTeams.filter(team => team !== teamClose);
   }

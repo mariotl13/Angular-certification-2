@@ -1,10 +1,10 @@
-import { Directive, ElementRef, Input } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { NbaGame, NbaTeam } from 'src/app/shared/models/nba.model';
 
 @Directive({
   selector: '[appGameResult]'
 })
-export class GameResultDirective {
+export class GameResultDirective implements OnInit {
 
   @Input() appGameResult!: NbaGame;
   @Input() appTeam!: NbaTeam;
@@ -14,6 +14,7 @@ export class GameResultDirective {
   ngOnInit(): void {
     let win: boolean;
 
+    // Check if the team win or lose
     if (this.appTeam.id === this.appGameResult.home_team.id) win = this.appGameResult.home_team_score > this.appGameResult.visitor_team_score;
     else win = this.appGameResult.visitor_team_score > this.appGameResult.home_team_score;
 

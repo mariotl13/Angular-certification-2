@@ -1,4 +1,5 @@
 
+// Result of the api call
 export interface NbaTeamApiResult {
     data: NbaTeam[];
     meta: Object;
@@ -13,6 +14,7 @@ export interface NbaTeam {
     name: string;
 }
 
+// Result of the api call
 export interface NbaGameApiResult {
     data: NbaGame[];
     meta: Object;

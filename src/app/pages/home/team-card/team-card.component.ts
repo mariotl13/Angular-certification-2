@@ -21,9 +21,11 @@ export class TeamCardComponent implements OnInit {
   constructor(private nbaService: NbaService, private router: Router) { }
 
   ngOnInit(): void {
+    // Get all the games of the team
     this.nbaService.getGames(this.team.id).subscribe((games: NbaGame[]) => {
       this.games = games;
 
+      // Calc average points scored and conceded
       this.ptsScored = this.games.reduce((partialSum: number, game: NbaGame) => {
         return partialSum + (game.home_team.id === this.team.id ? game.home_team_score : game.visitor_team_score)
       }, 0) / this.games.length;
