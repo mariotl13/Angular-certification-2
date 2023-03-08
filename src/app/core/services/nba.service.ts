@@ -10,7 +10,7 @@ export class NbaService {
 
     // API url
     #url = 'https://free-nba.p.rapidapi.com/';
-    #options = {
+    #headerOptions = {
         headers: new HttpHeaders({
             'X-RapidAPI-Key':'2QMXSehDLSmshDmRQcKUIAiQjIZAp1UvKUrjsnewgqSP6F5oBX',
             'X-RapidAPI-Host': 'free-nba.p.rapidapi.com'
@@ -27,8 +27,7 @@ export class NbaService {
      * @returns {Observable<NbaTeam[]>} Observable array of nba teams.
      */
     getTeams(): Observable<NbaTeam[]> {
-        const httpOption = this.#options;
-        return this._http.get<NbaTeamApiResult>(this.#url + 'teams', httpOption).pipe(map(value => value.data));
+        return this._http.get<NbaTeamApiResult>(this.#url + 'teams', this.#headerOptions).pipe(map(value => value.data));
     }
 
     /**
@@ -37,20 +36,20 @@ export class NbaService {
      * @returns {Observable<NbaGame[]>} Observable array of games.
      */
     getGames(teamId: number): Observable<NbaGame[]> {
-        const httpOption = this.#options;
-
         let currentDate = new Date();
         // Date for 12 days ago
         let previousDate = new Date(Date.UTC(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - 12));
 
         // Calc array of dates (1 per day in the last 12 days)
-        for(var arr=[], dt = new Date(previousDate); dt <= new Date(currentDate); dt.setDate(dt.getDate() + 1)){
-            arr.push('dates[]=' + new Date(dt).toISOString().split('T')[0]);
+        let datesArray = [];
+        for(let dt = new Date(previousDate); dt <= new Date(currentDate); dt.setDate(dt.getDate() + 1)){
+            datesArray.push('dates[]=' + new Date(dt).toISOString().split('T')[0]);
         }
 
         // Create url
-        let url = `${this.#url}games?${arr.join('&')}&team_ids[]=${teamId}`;
+        let url = `${this.#url}games?${datesArray.join('&')}&team_ids[]=${teamId}`;
 
-        return this._http.get<NbaGameApiResult>(url, httpOption).pipe(map(value => value.data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())));
+        // Get games and sort result by dates
+        return this._http.get<NbaGameApiResult>(url, this.#headerOptions).pipe(map(value => value.data.sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())));
     }
 }

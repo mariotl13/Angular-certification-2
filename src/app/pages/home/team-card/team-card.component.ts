@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { NbaService } from 'src/app/core/services/nba.service';
 import { NbaGame, NbaTeam } from 'src/app/shared/models/nba.model';
 
@@ -8,7 +9,7 @@ import { NbaGame, NbaTeam } from 'src/app/shared/models/nba.model';
   templateUrl: './team-card.component.html',
   styleUrls: ['./team-card.component.scss']
 })
-export class TeamCardComponent implements OnInit {
+export class TeamCardComponent implements OnInit, OnDestroy {
 
   @Input() team!: NbaTeam;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
@@ -18,11 +19,13 @@ export class TeamCardComponent implements OnInit {
   ptsScored: number = 0;
   ptsConceded: number = 0;
 
+  #destroy$ = new Subject<void>();
+
   constructor(private nbaService: NbaService, private router: Router) { }
 
   ngOnInit(): void {
     // Get all the games of the team
-    this.nbaService.getGames(this.team.id).subscribe((games: NbaGame[]) => {
+    this.nbaService.getGames(this.team.id).pipe(takeUntil(this.#destroy$)).subscribe((games: NbaGame[]) => {
       this.games = games;
 
       // Calc average points scored and conceded
@@ -37,6 +40,11 @@ export class TeamCardComponent implements OnInit {
 
   goToResults() {
     this.router.navigate(['results/' + this.team.abbreviation])
+  }
+
+  ngOnDestroy(): void {
+    this.#destroy$.next();
+    this.#destroy$.complete();
   }
 
 }

@@ -1,7 +1,7 @@
 
 <app-card [team]="team" [showClose]="false">
     <p>Scores of past 12 days:</p>
-    <p *ngFor="let game of $games | async">
+    <p *ngFor="let game of games$ | async">
         <span class="bold">{{game.home_team.abbreviation}}</span>
         {{game.home_team_score}} - {{game.visitor_team_score}}
         <span class="bold">{{game.visitor_team.abbreviation}}</span>

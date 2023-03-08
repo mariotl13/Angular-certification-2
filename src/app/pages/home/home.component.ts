@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subject, takeUntil } from 'rxjs';
 import { NbaService } from 'src/app/core/services/nba.service';
 import { NbaTeam } from 'src/app/shared/models/nba.model';
 
@@ -7,12 +8,14 @@ import { NbaTeam } from 'src/app/shared/models/nba.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, OnDestroy {
+
+  #destroy$ = new Subject<void>();
 
   constructor(public nbaService: NbaService) { }
 
   ngOnInit(): void {
-    this.nbaService.getTeams().subscribe((values: NbaTeam[]) => {
+    this.nbaService.getTeams().pipe(takeUntil(this.#destroy$)).subscribe((values: NbaTeam[]) => {
       this.nbaService.teams = values;
     });
   }
@@ -34,6 +37,11 @@ export class HomeComponent implements OnInit {
    */
   closeTeam(teamClose: NbaTeam) {
     this.nbaService.selectedTeams = this.nbaService.selectedTeams.filter(team => team !== teamClose);
+  }
+
+  ngOnDestroy(): void {
+    this.#destroy$.next();
+    this.#destroy$.complete();
   }
 
 }
